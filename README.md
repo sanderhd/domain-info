@@ -37,8 +37,8 @@
 ## Installation
 
 ```bash
-git clone https://github.com/sanderhd/domain-checker.git
-cd domain-checker
+git clone https://github.com/sanderhd/domain-info.git
+cd domain-info
 
 vercel
 ```
