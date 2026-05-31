@@ -8,46 +8,16 @@
     <link rel="stylesheet" href="assets/styles/style.css">
 </head>
 <body>
+    <div class="container">
+        <h1>Sander's Domain Checker</h1>
+        <p>Visualize every step between your browser and a website.</p>
 
-    <form>
-        <input id="domain">
-        <button type="submit">Lookup</button>
-    </form>
+        <form id="domain-form">
+            <input id="domain-input">
+            <button type="submit">Lookup</button>
+        </form>
+    </div>
     
-    <script>
-        const form = document.querySelector("form");
-        const input = document.querySelector("#domain");
-
-        form.addEventListener("submit", async (e) => {
-            e.preventDefault();
-
-            const domain = input.value;
-
-            const res = await fetch(`http://localhost:3000/lookup?domain=${domain}`);
-            const data = await res.json();
-
-            console.log(data);
-
-            render(data);
-        });
-
-        function render(data) {
-            let old = document.querySelector("#result");
-            if (old) old.remove();
-
-            const div = document.createElement("div");
-            div.id = "result";
-
-            div.innerHTML = `
-                <h2>${data.domain}</h2>
-
-                <p><b>DNS:</b> ${data.dns.addresses.join(", ")} (${data.dns.time}ms)</p>
-
-                <p><b>HTTP:</b> ${data.http.status} (${data.http.time}ms)</p>
-            `;
-
-            document.body.appendChild(div);
-        }
-    </script>
+    <script src="assets/scripts/script.js"></script>
 </body>
 </html>

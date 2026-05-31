@@ -1,12 +1,8 @@
-import express, { Request, Response } from "express";
-import cors from "cors"
+import type { VercelRequest, VercelResponse } from "@vercel/node"
 import dns from "dns/promises";
 import https from "https";
 
-const app = express();
-app.use(cors());
-
-app.get("/lookup", async (req: Request, res: Response) => {
+export default async function handler(req: VercelRequest, res: VercelResponse) {
     const domain = req.query.domain as string;
 
     if (!domain) {
@@ -17,12 +13,12 @@ app.get("/lookup", async (req: Request, res: Response) => {
         domain,
         dns: null,
         http: null
-    }
+    };
 
     try {
         const startDns = Date.now();
         const addresses = await dns.resolve4(domain);
-        
+
         result.dns = {
             addresses,
             time: Date.now() - startDns
@@ -30,8 +26,8 @@ app.get("/lookup", async (req: Request, res: Response) => {
 
         const startHttp = Date.now();
 
-        await new Promise((resolve, reject) => {
-            const req = https.get(`https://${domain}`, (resp) => {
+        await new Promise<void>((resolve, reject) => {
+            const request = https.get(`https://${domain}`, (resp) => {
                 let data = "";
 
                 resp.on("data", (chunk) => (data += chunk));
@@ -41,21 +37,15 @@ app.get("/lookup", async (req: Request, res: Response) => {
                         time: Date.now() - startHttp,
                         server: resp.headers["server"] || null
                     };
-                    resolve(null);
-                })
+                    resolve();
+                });
             });
 
-            req.on("error", reject)
+            request.on("error", reject);
         });
 
-        res.json(result);
+        return res.status(200).json(result);
     } catch (err: any) {
-        res.status(500).json({
-            error: err.message
-        });
-    } 
-});
-
-app.listen(3000, () => {
-    console.log("Server running on http://localhost:3000");
-});
+        return res.status(500).json({ error: err.message });
+    }
+}
