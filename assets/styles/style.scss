@@ -35,8 +35,9 @@ body {
             }
 
             button {
-                background-color: linear-gradient(90deg, #3b82f6, #06b6d4);
+                background: linear-gradient(90deg, #3b82f6, #06b6d4);
                 border: none;
+                border-radius: 8px;
                 padding: 8px 14px;
                 color: white;
                 cursor: pointer;
@@ -51,7 +52,7 @@ body {
             }
         }
 
-        #result {
+        .result {
             margin-top: 40px;
             width: 420px;
             padding: 18px;

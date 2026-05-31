@@ -33,8 +33,9 @@ body .container form input::placeholder {
   color: rgba(230, 241, 255, 0.4);
 }
 body .container form button {
-  background-color: linear-gradient(90deg, #3b82f6, #06b6d4);
+  background: linear-gradient(90deg, #3b82f6, #06b6d4);
   border: none;
+  border-radius: 8px;
   padding: 8px 14px;
   color: white;
   cursor: pointer;
@@ -46,7 +47,7 @@ body .container form button:hover {
   transform: translateY(-1px);
   box-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
 }
-body .container #result {
+body .container .result {
   margin-top: 40px;
   width: 420px;
   padding: 18px;
@@ -56,13 +57,13 @@ body .container #result {
   box-shadow: 0 0 30px rgba(0, 140, 255, 0.08), inset 0 0 20px rgba(255, 255, 255, 0.02);
   animation: fadeIn 0.4s ease;
 }
-body .container #result p {
+body .container .result p {
   margin: 10px 0;
   font-size: 13px;
   line-height: 1.4;
   color: rgba(230, 241, 255, 0.85);
 }
-body .container #result p b {
+body .container .result p b {
   color: #7dd3fc;
 }
 
